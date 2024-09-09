@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Đăng Xuất";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Màu nền trang */
+        font-family: 'Arial', sans-serif; /* Font chữ chính */
+    }
+
+    .container {
+        margin-top: 50px; /* Khoảng cách từ đỉnh trang đến nội dung */
+        text-align: center; /* Canh giữa nội dung */
+    }
+
+    h4 {
+        color: #28a745; /* Màu văn bản cho thông báo thành công */
+        margin-bottom: 20px; /* Khoảng cách từ thông báo đến nút "Về Trang Chủ" */
+    }
+
+    h5 {
+        margin-top: 20px; /* Khoảng cách từ thông báo đến nút "Về Trang Chủ" */
+    }
+
+    .btn-primary {
+        padding: 10px 20px; /* Kích thước nút */
+        font-size: 18px; /* Kích thước chữ nút */
+    }
+</style>
+
+<div class="container">
+    <h4>Đã đăng xuất! <br />Xin cảm ơn @Session["TDN"].ToString() đã truy cập! </h4>
+    <h5 class="text-primary">
+        @Html.ActionLink("Về Trang Chủ", "Index", "BookStore", new { @class = "btn btn-primary", style = "color: white;" })
+    </h5>
+</div>

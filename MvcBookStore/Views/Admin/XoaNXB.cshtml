@@ -1,0 +1,89 @@
+﻿@model MvcBookStore.Models.NHAXUATBAN
+
+@{
+    ViewBag.Title = "Xóa Nhà Xuất Bản";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Add this CSS to your stylesheet or create a new one */
+
+    /* Container */
+    .container {
+        margin-top: 20px;
+    }
+
+    /* Confirmation Message */
+    .confirmation-message {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    /* Publisher Details */
+    .publisher-details {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .dl-horizontal {
+        text-align: left;
+    }
+
+    .dl-horizontal dt {
+        width: 100px; /* Adjust the width as needed */
+        display: inline-block;
+        font-weight: bold;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 120px; /* Adjust the margin to create space between dt and dd */
+        display: inline-block;
+    }
+
+    /* Form Actions */
+    .form-actions {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    /* Responsive Margin for Form Actions */
+    @@media (max-width: 576px) {
+        .form-actions {
+            margin-top: 15px;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="confirmation-message">
+        <h3 class="text-danger">Không thể khôi phục sau khi xóa! Xác nhận xóa?</h3>
+    </div>
+
+    <div class="publisher-details">
+        <dl class="dl-horizontal">
+            <dt>Tên NXB:</dt>
+            <dd>@Html.DisplayFor(model => model.TenNXB)</dd>
+            <br />
+            <dt>Địa chỉ:</dt>
+            <dd>@Html.DisplayFor(model => model.Diachi)</dd>
+            <br />
+            <dt>Điện thoại:</dt>
+            <dd>@Html.DisplayFor(model => model.DienThoai)</dd>
+        </dl>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <input type="submit" value="Xác nhận" class="btn btn-danger mr-2" />
+            @Html.ActionLink("Hủy", "NXB", null, new { @class = "btn btn-secondary mr-2" })
+        </div>
+    }
+</div>

@@ -1,0 +1,18 @@
+﻿@model PagedList.IPagedList<MvcBookStore.Models.SACH>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Sắp xếp đơn giá giảm dần";
+}
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div>
+            <h2>@item.Tensach</h2>
+            <p>Giá: @string.Format("{0:C}", item.Giaban)</p>
+        </div>
+    }
+
+    @Html.PagedListPager(Model, page => Url.Action("SachGiaGiam", new { page }))
+</div>

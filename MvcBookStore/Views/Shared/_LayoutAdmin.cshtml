@@ -1,0 +1,123 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="~/images/favicon.png">
+    <link rel="stylesheet" href="~/Content/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/magnific-popup.min.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.css">
+    <link rel="stylesheet" href="~/Content/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="~/Content/themify-icons.css">
+    <link rel="stylesheet" href="~/Content/niceselect.css">
+    <link rel="stylesheet" href="~/Content/animate.css">
+    <link rel="stylesheet" href="~/Content/flex-slider.min.css">
+    <link rel="stylesheet" href="~/Content/owl-carousel.css">
+    <link rel="stylesheet" href="~/Content/slicknav.min.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/css.css">
+    <link rel="stylesheet" href="~/Content/responsive.css">
+    @RenderSection("Scripts", required: false)
+
+</head>
+<body>
+    <header class="header shop">
+        <div class="header-inner">
+            <div class="container">
+                <div class="cat-nav-head">
+                    <div class="row">
+                        <div class="col-lg-9 col-12">
+                            <div class="menu-area">
+                                <!-- Main Menu -->
+                                <nav class="navbar navbar-expand-lg">
+                                    <div class="navbar-collapse">
+                                        <div class="nav-inner">
+                                            <ul class="nav main-menu menu navbar-nav">
+                                                <li class="active"><a href="@Url.Action("Index","Admin")">Trang Chủ</a></li>
+                                                <li>
+                                                    <a href="@Url.Action("Sach","Admin")">Quản Lý Sách</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("QuanLyDonHang","Admin")">Đơn Hàng</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Loai","Admin")">Loại Sách</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("NXB","Admin")">Nhà Xuất Bản</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("KhachHangList","Admin")">Khách Hàng</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ThongKeDoanhThu", "Admin")">Doanh Thu</a>
+                                                </li>
+
+                                            </ul>
+                                            
+                                        </div>
+                                    </div>
+                                </nav>
+                                <!--/ End Main Menu -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Header Inner -->
+    </header>
+    <!--/ End Header -->
+    <!-- Start Product Area -->
+    <div class="product-area section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div>
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Jquery -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-migrate-3.0.0.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <!-- Popper JS -->
+    <!--Them phan chinh sua Mota-->
+    <script src="https://cdn.tiny.cloud/1/ulmavbr11rtasyz6ypm6vpetcbglg46fedrs4y0aetoaszal/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({ selector: 'textarea' });</script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- Color JS -->
+    <script src="~/Scripts/colors.js"></script>
+    <!-- Slicknav JS -->
+    <script src="~/Scripts/slicknav.min.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="~/Scripts/owl-carousel.js"></script>
+    <!-- Magnific Popup JS -->
+    <script src="~/Scripts/magnific-popup.js"></script>
+    <!-- Waypoints JS -->
+    <script src="~/Scripts/waypoints.min.js"></script>
+    <!-- Countdown JS -->
+    <script src="~/Scripts/finalcountdown.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="~/Scripts/nicesellect.js"></script>
+    <!-- Flex Slider JS -->
+    <script src="~/Scripts/flex-slider.js"></script>
+    <!-- ScrollUp JS -->
+    <script src="~/Scripts/scrollup.js"></script>
+    <!-- Onepage Nav JS -->
+    <script src="~/Scripts/more.js"></script>
+    <script src="~/Scripts/onepage-nav.min.js"></script>
+    <script src="~/Scripts/easing.js"></script>
+    <script src="~/Scripts/active.js"></script>
+</body>
+</html>

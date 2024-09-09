@@ -1,0 +1,194 @@
+﻿@{
+    ViewBag.Title = "Đăng Ký Thành Viên";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    #p1 {
+        color: red;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    table {
+        width: 50%;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+<h4 style="text-align:center">ĐĂNG KÍ THÀNH VIÊN</h4>
+<br />
+@using (Html.BeginForm())
+{
+    <script>
+    function validateForm() {
+        var specialCharactersPattern = /[!@@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+        var phone = document.getElementById("Dienthoai").value;
+        var name = document.getElementById("HotenKH").value;
+        var username = document.getElementById("TenDN").value;
+        var password = document.getElementById("Matkhau").value;
+        var confirmPassword = document.getElementById("Matkhaunhaplai").value;
+        var email = document.getElementById("Email").value;
+        var address = document.getElementById("Diachi").value;
+        if (username.trim() === "" || password.trim() === "" || confirmPassword.trim() === "" ||
+            name.trim() === "" || phone.trim() === "" || email.trim() === "" || address.trim() === "") {
+            alert("Vui lòng nhập đầy đủ thông tin.");
+            return false;
+        }
+
+        if (username.trim() === "") {
+            alert("Tên đăng nhập không được để trống.");
+            return false;
+        }
+
+        if (password.trim() === "") {
+            alert("Mật khẩu không được để trống.");
+            return false;
+        }
+
+        if (confirmPassword.trim() === "") {
+            alert("Nhập lại mật khẩu không được để trống.");
+            return false;
+        }
+
+        if (name.trim() === "") {
+            alert("Họ và Tên không được để trống.");
+            return false;
+        }
+
+        if (phone.trim() === "") {
+            alert("Số điện thoại không được để trống.");
+            return false;
+        }
+
+        if (email.trim() === "") {
+            alert("Email không được để trống.");
+            return false;
+        }
+
+        if (address.trim() === "") {
+            alert("Địa chỉ không được để trống.");
+            return false;
+        }
+        var phonePattern = /^\d+$/;
+        var namePattern = /^[^\d]+$/;
+        var username = document.getElementById("TenDN").value;
+        if (specialCharactersPattern.test(username)) {
+            alert("Tên đăng nhập không được chứa kí tự đặc biệt.");
+            return false;
+        }
+
+        if (!phonePattern.test(phone)) {
+            alert("Số điện thoại không được chứa kí tự chữ.");
+            return false;
+        }
+
+        if (!namePattern.test(name)) {
+            alert("Họ và Tên không được chứa kí tự số.");
+            return false;
+        }
+
+        if (specialCharactersPattern.test(phone)) {
+            alert("Số điện thoại không được chứa kí tự đặc biệt.");
+            return false;
+        }
+
+        if (specialCharactersPattern.test(name)) {
+            alert("Họ và Tên không được chứa kí tự đặc biệt.");
+            return false;
+        }
+
+        return true;
+    }
+    </script>
+
+
+    <table>
+        <h4 style="text-align:center" id="p1">Điền đầy đủ thông tin đăng kí</h4>
+        @Html.ValidationSummary(true)
+        <tr>
+            <th> Họ và Tên: <font color="red">*</font></th>
+            <td>
+                @Html.TextBox("HotenKH", null, new { minlength = 6, maxlength = 18, required = "required", id = "HotenKH" })
+                @ViewData["LoiHoten"]
+            </td>
+        </tr>
+        <tr>
+            <th> Tên đăng nhập: <font color="red">*</font></th>
+            <td>
+                @Html.TextBox("TenDN", null, new { minlength = 6, maxlength = 18, required = "required" })
+            </td>
+            <td id="p1">@ViewData["Loi2"]</td>
+        </tr>
+        <tr>
+            <th> Mật khẩu: <font color="red">*</font></th>
+            <td>
+                @Html.Password("Matkhau", null, new { minlength = 6, maxlength = 18, required = "required" })
+            </td>
+            <td id="p1">@ViewData["Loi3"]</td>
+        </tr>
+        <tr>
+            <th> Nhập lại mật khẩu: <font color="red">*</font></th>
+            <td>
+                @Html.Password("Matkhaunhaplai", null, new { minlength = 6, maxlength = 18, required = "required" })
+            </td>
+            <td id="p1">@ViewData["Loi4"]</td>
+        </tr>
+        <tr>
+            <th> Email: <font color="red">*</font></th>
+            <td>
+                @Html.TextBox("Email")
+            </td>
+            <td id="p1">@ViewData["Loi5"]</td>
+        </tr>
+        <tr>
+            <th> Địa chỉ: <font color="red">*</font></th>
+            <td>
+                @Html.TextBox("Diachi")
+            </td>
+            <td id="p1">@ViewData["Loi6"]</td>
+        </tr>
+        <tr>
+            <th> Số điện thoại: <font color="red">*</font></th>
+            <td>
+                @Html.TextBox("Dienthoai", null, new { minlength = 10, maxlength = 11, required = "required", id = "Dienthoai" })
+                @ViewData["Loi7"]
+            </td>
+            <td id="p1">@ViewData["Loi7"]</td>
+        </tr>
+        <tr>
+            <th> Ngày sinh: <font color="red">*</font></th>
+            <td>
+                <input type="date" name="Ngaysinh" />
+            </td>
+        </tr>
+        <tr>
+        <tr>
+            <td></td>
+            <td>
+                <br />
+                <input class="btn bg-primary text-white text-center" type="submit" value="Đăng Ký" onclick="return validateForm();" />
+            </td>
+        </tr>
+    </table>
+}

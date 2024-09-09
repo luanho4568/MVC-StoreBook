@@ -1,0 +1,184 @@
+﻿@using MvcBookStore.Models
+@model List<Giohang>
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    tr, td {
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid black;
+    }
+
+    table {
+        text-align: center;
+        border: 1px solid black;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #imggh {
+        width: 100px;
+        height: 150px;
+    }
+
+    a {
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .btn-success {
+        background-color: #28A745;
+        border-color: #28A745;
+        color: #fff;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1E7E34;
+        }
+
+    .btn-danger {
+        background-color: #DC3545;
+        border-color: #DC3545;
+        color: #fff;
+    }
+
+        .btn-danger:hover {
+            background-color: #C82333;
+            border-color: #BD2130;
+        }
+
+    .text-primary {
+        color: #007BFF;
+    }
+
+    .text-danger {
+        color: #DC3545;
+    }
+
+    .bg-success {
+        background-color: #28A745;
+    }
+
+    .text-white {
+        color: #fff;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .btn-action {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .center-content {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .action-buttons {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        .action-buttons a {
+            margin: 0 10px;
+        }
+
+    .big-text {
+        font-size: 18px; /* Điều chỉnh kích thước chữ theo nhu cầu */
+        font-weight: bold; /* Tùy chọn: làm chữ đậm nếu muốn */
+    }
+    .link-default {
+        background-color: #FFA500;
+        border-color: #FFA500;
+        color: #000; /* Default text color */
+    }
+
+    .link-clicked {
+        color: #fff; /* Clicked text color */
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center">@ViewBag.Title</h2>
+    <br />
+    @if (ViewBag.IsCartEmpty)
+    {
+        <div class="text-center">
+            <p class="big-text text-info">@ViewBag.CartMessage</p>
+            <br />
+            <a href="@Url.Action("Index", "BookStore")" class="btn btn-success" style="background-color: #28A745; border-color: #28A745;">
+                Tiếp tục mua sắm
+            </a>
+        </div>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <td>Tên Sách</td>
+                <td>Ảnh Bìa</td>
+                <td>Số Lượng</td>
+                <td>Đơn Giá</td>
+                <td>Thành Tiền</td>
+                <td colspan="3">Thao Tác</td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.sTensach</td>
+                    <td><img id="imggh" src="~/images/anhsp/@item.sAnhbia" /></td>
+                    @using (Html.BeginForm("CapnhatGiohang", "Giohang", new { @iMaSp = item.iMasach }))
+                    {
+                        <td class="center-content">
+                            <input class="text-center" type="number" min="1" name="txtSoluong" value="@item.iSoluong" />
+                        </td>
+                        <td>@String.Format("{0:#,##0}", item.dDonggia)</td>
+                        <td>@String.Format("{0:#,##0}", item.dThanhtien)</td>
+                        <td class="text-info"><a href="@Url.Action("Details", "BookStore", new { id = item.iMasach })">Chi tiết</a></td>
+                        <td class="text-danger">@Html.ActionLink("Xóa", "XoaGiohang", new { @iMaSp = item.iMasach })</td>
+                        <td><input class="btn btn-success" type="submit" value="Cập Nhật" /></td>
+                    }
+                </tr>
+            }
+            <tr class="text-primary">
+                <td colspan="4" class="text-right center-content">
+                    Số lượng sách: @ViewBag.Tongsoluong
+                </td>
+                <td colspan="4" class="text-right center-content">
+                    Tổng tiền: @String.Format("{0:#,##0}", ViewBag.Tongtien) VNĐ
+                </td>
+            </tr>
+        </table>
+
+        <div class="action-buttons">
+            <div class="btn-action">
+                @Html.ActionLink("Mua Thêm Sách", "Index", "BookStore", null, new { @class = "btn btn-info link-default" })
+            </div>
+
+            <div class="btn-action">
+                @Html.ActionLink("Xóa Giỏ Hàng", "XoaTatcaGiohang", null, new { @class = "btn btn-danger" })
+            </div>
+            <div class="btn-action">
+                @Html.ActionLink("Đặt Hàng", "DatHang", "Giohang", new { @class = "btn btn-success" })
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $('.link-default').click(function () {
+            $(this).addClass('link-clicked');
+        });
+    });
+</script>

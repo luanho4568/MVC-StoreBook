@@ -1,0 +1,38 @@
+﻿@model MvcBookStore.Models.DONDATHANG
+
+@{
+    ViewBag.Title = "Sửa Đơn Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sửa Đơn Hàng</h2>
+
+@using (Html.BeginForm("XacnhanSuaDonHang", "Admin", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.MaDonHang)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DathanhtoanValue, "Trạng Thái Thanh Toán")
+        @Html.DropDownListFor(model => model.DathanhtoanValue, new SelectList(new List<SelectListItem>
+        {
+            new SelectListItem { Text = "Chưa thanh toán", Value = "false" },
+            new SelectListItem { Text = "Đã thanh toán", Value = "true" }
+        }, "Value", "Text"), new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TinhtranggiaohangValue, "Trạng Thái Giao Hàng")
+        @Html.DropDownListFor(model => model.TinhtranggiaohangValue, new SelectList(new List<SelectListItem>
+        {
+            new SelectListItem { Text = "Chưa giao hàng", Value = "false" },
+            new SelectListItem { Text = "Đã giao hàng", Value = "true" }
+        }, "Value", "Text"), new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ngaygiao, "Ngày Giao")
+        @Html.EditorFor(model => model.Ngaygiao, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+}

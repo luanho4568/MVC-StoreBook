@@ -1,0 +1,130 @@
+﻿@using MvcBookStore.Models
+@model List<Giohang>
+@{
+    ViewBag.Title = "Xác Nhận Đặt Hàng";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    // Move the declaration outside the code block
+    KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+}
+
+<style>
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .product-table, .order-details-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+
+        .product-table th, .product-table td, .order-details-table th, .order-details-table td {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+    #imggh {
+        width: 80px;
+        height: 120px;
+    }
+
+    .back-to-cart {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .order-details input[type="submit"] {
+        padding: 15px;
+        background-color: #28A745;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+        .order-details input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+    .order-details input[type="date"] {
+        width: 100%;
+        padding: 15px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Thông Tin Sản Phẩm</h2>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Tên Sách</th>
+                        <th>Ảnh Bìa</th>
+                        <th>Số Lượng</th>
+                        <th>Đơn Giá</th>
+                        <th>Thành Tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.sTensach</td>
+                            <td><img id="imggh" src="~/images/anhsp/@item.sAnhbia" /></td>
+                            <td>@item.iSoluong</td>
+                            <td>@String.Format("{0:#,##0}", item.dDonggia)</td>
+                            <td>@String.Format("{0:#,##0}", item.dThanhtien)</td>
+                        </tr>
+                    }
+                    <tr class="text-primary">
+                        <td colspan="4" class="text-right center-content">
+                            Số lượng sách: @ViewBag.Tongsoluong
+                        </td>
+                        <td colspan="4" class="text-right center-content">
+                            Tổng tiền: @String.Format("{0:#,##0}", ViewBag.Tongtien) VNĐ
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="back-to-cart">
+                @Html.ActionLink("Trở về Giỏ Hàng", "GioHang", "Giohang", new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Thông Tin Đặt Hàng</h2>
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <table class="order-details-table">
+                    <tr>
+                        <th>Họ tên khách hàng:</th>
+                        <td>@kh.HoTen</td>
+                    </tr>
+                    <tr>
+                        <th>Địa chỉ:</th>
+                        <td>@kh.DiachiKH</td>
+                    </tr>
+                    <tr>
+                        <th>Điện thoại:</th>
+                        <td>@kh.DienthoaiKH</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày đặt:</th>
+                        <td>@DateTime.Now.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Đồng ý đặt hàng" class="btn btn-success" /></td>
+                    </tr>
+
+                </table>
+            }
+        </div>
+    </div>
+</div>

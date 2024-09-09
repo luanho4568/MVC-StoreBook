@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = @Model.Tensach;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    /* Cho container chính */
+    .container {
+        margin-top: 20px;
+    }
+
+    /* Cho hình ảnh sản phẩm */
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ddd; /* Viền ảnh */
+        border-radius: 8px; /* Bo tròn góc */
+    }
+
+    /* Cho thông tin sản phẩm bên phải */
+    .col-md-6 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Cho các thông tin sản phẩm */
+    h3 {
+        color: #333;
+        font-size: 28px;
+    }
+
+    p {
+        color: #555;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    /* Giá bán đặc biệt được đặt màu đỏ và làm đậm */
+    .text-danger {
+        color: #d9534f;
+        font-weight: bold;
+    }
+
+    /* Nút Đặt Mua và Hết Hàng */
+    .text-center {
+        margin-top: 20px;
+    }
+
+    .btn {
+        cursor: pointer;
+    }
+
+    /* Nút Đặt Mua màu xanh dương */
+    .btn-primary {
+        background-color: #428bca;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #3071a9;
+        }
+
+    /* Nút Hết Hàng màu đỏ */
+    .btn-danger {
+        background-color: #d9534f;
+        color: #fff;
+    }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+
+</style>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-fluid" src="~/images/anhsp/@Model.Anhbia" alt="@Model.Tensach">
+        </div>
+        <div class="col-md-6">
+            <h3>@Model.Tensach</h3>
+            <p>Loại sách: @Model.Loai.TenLoai</p>
+            <p>Nhà Xuất Bản: @Model.NHAXUATBAN.TenNXB</p>
+            <p class="text-danger">Giá bán: @String.Format("{0:#,##0}", @Model.Giaban) VNĐ</p>
+            <p>Số lượng tồn: @Model.Soluongton quyển</p>
+            <p>Mô tả: @Model.Mota</p>
+
+            @if (@Model.Soluongton != 0 && @Model.Soluongton != null)
+            {
+                <div class="text-center">
+                    <a class="btn btn-primary" href="@Url.Action("ThemGiohang","GioHang", new {@iMasach=@Model.Masach,@strURL=Request.Url.ToString()})">Đặt Mua</a>
+                </div>
+            }
+            else
+            {
+                <div class="text-center">
+                    <button type="button" class="btn btn-danger" disabled>Hết Hàng!</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

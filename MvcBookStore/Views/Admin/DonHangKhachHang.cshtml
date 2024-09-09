@@ -1,0 +1,108 @@
+﻿@model List<MvcBookStore.Models.DONDATHANG>
+
+@{
+    ViewBag.Title = "Đơn hàng Khách Hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    h2 {
+        color: #007bff;
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right: 5px;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .no-orders {
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    .center-align {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn-secondary {
+        background-color: #F7941D;
+        color: #fff;
+    }
+</style>
+
+<h2>Danh sách đơn hàng của khách hàng</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <tr>
+            <th>Mã đơn hàng</th>
+            <th>Ngày đặt hàng</th>
+            <th>Trạng thái thanh toán</th>
+            <th>Chi tiết đơn hàng</th>
+        </tr>
+        @foreach (var donhang in Model)
+        {
+            <tr>
+                <td>@donhang.MaDonHang</td>
+                <td>@donhang.Ngaydat</td>
+                <td>@(donhang.DathanhtoanValue ? "Đã thanh toán" : "Chưa thanh toán")</td>
+
+                <td>
+                    @Html.ActionLink("Xem chi tiết", "Chitietdonhang", new { id = donhang.MaDonHang }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </table>
+    <p class="center-align">
+        <a href="@Url.Action("KhachHangList", "Admin")" class="btn btn-secondary">Quay lại</a>
+    </p>
+}
+else
+{
+    <h4 class="center-align">Khách hàng chưa có đơn hàng.</h4>
+    <p class="center-align">
+        <a href="@Url.Action("KhachHangList", "Admin")" class="btn btn-secondary">Quay lại</a>
+    </p>
+}

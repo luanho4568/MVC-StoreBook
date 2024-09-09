@@ -1,0 +1,107 @@
+﻿@model List<MvcBookStore.Models.CHITIETDONTHANG>
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .order-details {
+        max-width: 800px;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+    }
+
+        .order-details h2 {
+            color: #007bff;
+        }
+
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .table img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .table td[colspan="4"] {
+            text-align: right;
+            font-weight: bold;
+        }
+
+    .back-link {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        .back-link a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            .back-link a:hover {
+                background-color: #0056b3;
+            }
+</style>
+
+<div class="order-details">
+    <h2>Chi tiết đơn hàng</h2>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>Tên sách</th>
+                <th>Ảnh bìa</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.SACH.Tensach</td>
+                    <td><img src="@Url.Content("~/images/anhsp/" + item.SACH.Anhbia)" alt="@item.SACH.Tensach" /></td>
+                    <td>@item.Soluong</td>
+                    <td>@item.Dongia.Value.ToString("#,##")</td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="4" align="right">
+                    <span class="mr-5">Tổng số lượng: @Model.Sum(n => n.Soluong)</span>
+                    <span>Tổng tiền: @Model.Sum(n => n.Dongia.Value).ToString("#,##") VNĐ</span>
+                </td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        <p>Đơn hàng không có sản phẩm.</p>
+    }
+
+    <p class="back-link">
+        @Html.ActionLink("Quay lại", "DonHangKhachHang/"+Model.Count)
+    </p>
+</div>

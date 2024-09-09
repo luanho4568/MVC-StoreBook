@@ -1,0 +1,18 @@
+﻿@model IEnumerable<MvcBookStore.Models.DONDATHANG>
+@{
+    ViewBag.Title = "Quản lí đơn hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 10);
+}
+
+<div class="card">
+    <div class="card-body">
+        <h2>Quản lí đơn hàng</h2>
+        <br />
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("ChuaThanhToan","Admin")">CHƯA THANH TOÁN</a></li>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("ChuaGiao","Admin")">ĐÃ THANH TOÁN & CHƯA GIAO</a></li>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("DaGiaoDaThanhToan","Admin")">ĐÃ THANH TOÁN & ĐÃ GIAO</a></li>
+        </ul>
+    </div>
+</div>

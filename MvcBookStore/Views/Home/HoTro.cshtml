@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Hỗ Trợ";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .jumbotron {
+            background-color: #343a40;
+            color: #ffffff;
+            text-align: center;
+            padding: 60px;
+            margin-bottom: 0;
+        }
+
+        .contact-info-table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .contact-info-table th,
+            .contact-info-table td {
+                border: 1px solid #dee2e6;
+                padding: 15px;
+                text-align: left;
+            }
+
+            .contact-info-table th {
+                background-color: #007bff;
+                color: #ffffff;
+            }
+
+        .social-link {
+            color: blue;
+            text-decoration: none;
+            transition: color 0.3s ease; /* Thêm hiệu ứng chuyển đổi màu */
+        }
+
+            .social-link:hover {
+                text-decoration: underline;
+                color: #f7941d; /* Màu khi di chuột vào */
+            }
+
+        .back-to-home {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s ease; /* Thêm hiệu ứng chuyển đổi màu */
+        }
+
+            .back-to-home:hover {
+                background-color: #f7941d; /* Màu khi di chuột vào */
+            }
+    </style>
+</head>
+<body>
+
+    <div class="jumbotron">
+        <table class="contact-info-table">
+            <tr>
+                <th>Tên Thành Viên</th>
+                <th>Mã Số Sinh Viên</th>
+                <th>Số Điện Thoại</th>
+                <th>Email</th>
+                <th>Facebook</th>
+            </tr>
+            <tr>
+                <td>Hồ Đình Thanh Luân</td>
+                <td>K13THO0027</td>
+                <td>0815733003</td>
+                <td>luanho4568@gmail.com</td>
+                <td><a href="https://www.facebook.com/YeuBePanh" class="social-link" target="_blank">Trang cá nhân của Luân</a></td>
+            </tr>
+            <!-- Thêm các hàng cho các thành viên khác -->
+        </table>
+        <a href="/" class="back-to-home">Quay lại trang chủ</a>
+    </div>
+
+</body>
+</html>

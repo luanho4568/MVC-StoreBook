@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Quên Mật Khẩu";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    p {
+        color: red;
+    }
+
+    input {
+        width: 50%;
+    }
+
+    tr {
+        height: 40px;
+        width: 100%;
+    }
+</style>
+
+<center>
+    <h2>@ViewBag.Title</h2>
+    <p>@ViewBag.Thongbao</p>
+</center>
+
+<table>
+    @using (Html.BeginForm("QuenMatKhau", "Nguoidung", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+        <tr>
+            <td>Chọn Phương Thức:</td>
+            <td>
+                <select name="PhuongThuc">
+                    <option value="Email">Email</option>
+                    <option value="SoDienThoai">Số Điện Thoại</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Nhập Thông Tin:</td>
+            <td>
+                <input type="text" name="ThongTinLayLaiMatKhau" required />
+                <font color="red">@ViewData["ThongBaoQuenMatKhau"]</font>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input class="btn bg-primary text-white text-center" type="submit" value="Gửi Yêu Cầu" />
+            </td>
+        </tr>
+    }
+</table>
+

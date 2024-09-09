@@ -1,0 +1,95 @@
+﻿@model MvcBookStore.Models.Loai
+
+@{
+    ViewBag.Title = "Sửa Thể Loại Sách";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    body {
+        padding-top: 20px;
+        background-color: #f8f8f8;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    label {
+        font-weight: bold;
+        color: #555;
+        white-space: nowrap;
+    }
+
+    .form-control {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: none;
+    }
+
+    .btn-container {
+        margin-top: 20px;
+    }
+
+        .btn-container .btn {
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+    .btn-save {
+        background-color: #5cb85c; /* Màu xanh lá cây */
+        color: #fff;
+        border-color: #4cae4c;
+    }
+
+    .btn-cancel {
+        background-color: #d9534f; /* Màu đỏ */
+        color: #fff;
+        border-color: #d43f3a;
+    }
+
+    .btn-back {
+        background-color: #5bc0de; /* Màu xanh dương */
+        color: #fff;
+        border-color: #46b8da;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Sửa Thể Loại Sách</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.MaLoai)
+
+            <label class="control-label col-md-2" for="TenLoai">Tên Thể Loại</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenLoai, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenLoai, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-save" />
+                @Html.ActionLink("Hủy", "Loai", null, new { @class = "btn btn-cancel" })
+                @Html.ActionLink("Quay lại", "Loai", null, new { @class = "btn btn-back" })
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,97 @@
+﻿@model MvcBookStore.Models.SACH
+
+@{
+    ViewBag.Title = "Xoasach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    /* Add this CSS to your stylesheet or create a new one */
+
+/* Container */
+.container {
+    margin-top: 20px;
+}
+
+/* Confirmation Message */
+.confirmation-message {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Book Details */
+.book-details {
+    margin-bottom: 20px;
+}
+
+.book-details img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Form Actions */
+.form-actions {
+    margin-top: 20px;
+}
+
+/* Responsive Margin for Form Actions */
+@@media (max-width: 576px) {
+    .form-actions {
+        margin-top: 15px;
+    }
+}
+
+</style>
+<div class="container">
+    <div class="confirmation-message">
+        <h3 class="text-danger">Không thể khôi phục sau khi xóa! Xác nhận xóa?</h3>
+    </div>
+
+    <div class="book-details">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@Url.Content("~/images/anhsp/" + Model.Anhbia)" alt="Ảnh bìa" class="img-fluid rounded" />
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <dt>Tên sách:</dt>
+                    <dd>@Html.DisplayFor(model => model.Tensach)</dd>
+
+                    <dt>Giá bán:</dt>
+                    <dd>@String.Format("{0:#,##0}", Model.Giaban) VNĐ</dd>
+
+                    <dt>Mô tả:</dt>
+                    <dd>@Html.DisplayFor(model => model.Mota)</dd>
+
+                    <dt>Ngày cập nhật:</dt>
+                    <dd>@String.Format("{0:dd/MM/yyyy}", Model.Ngaycapnhat)</dd>
+
+                    <dt>Số lượng tồn:</dt>
+                    <dd>@Html.DisplayFor(model => model.Soluongton)</dd>
+
+                    <dt>Loại sách:</dt>
+                    <dd>@Html.DisplayFor(model => model.Loai.TenLoai)</dd>
+
+                    <dt>Nhà xuất bản:</dt>
+                    <dd>@Html.DisplayFor(model => model.NHAXUATBAN.TenNXB)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions d-flex justify-content-center">
+    <input type="submit" value="Xóa" class="btn btn-danger mr-2" />
+    <a href="@Url.Action("Suasach", new { id = Model.Masach })" class="btn btn-primary mr-2">Sửa</a>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+</div>
+    }
+</div>
+
+

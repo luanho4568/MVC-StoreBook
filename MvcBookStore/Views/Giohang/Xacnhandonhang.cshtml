@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Xác nhận đơn hàng";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    .btn-home {
+        background-color: #fff; /* Màu trắng khi không hover */
+        color: #fff; /* Màu chữ trắng khi không hover */
+        border: 2px solid #1d68a7; /* Viền màu xanh khi không hover */
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Hiệu ứng chuyển đổi màu */
+    }
+
+        .btn-home:hover {
+            background-color: #F7941D; /* Màu cam khi hover */
+            color: #fff; /* Màu trắng khi hover */
+            border-color: #F7941D; /* Viền màu cam khi hover */
+        }
+</style>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-12">
+            @if (ViewBag.TenKhachHang != null)
+            {
+                <h2 class="text-success">Cảm ơn @ViewBag.TenKhachHang đã đặt hàng!</h2>
+                <h2 class="text-success">Đơn hàng của bạn đã được xác nhận!</h2>
+            }
+            else if (Session["Taikhoan"] != null)
+            {
+                MvcBookStore.Models.KHACHHANG khachHang = (MvcBookStore.Models.KHACHHANG)Session["Taikhoan"];
+                <h2 class="text-success">Cảm ơn @khachHang.HoTen đã đặt hàng! </h2>
+                <h2 class="text-success">Đơn hàng của bạn đã được xác nhận!</h2>
+
+            }
+            else
+            {
+                <h2 class="text-danger">Lỗi: Không tìm thấy thông tin khách hàng.</h2>
+            }
+
+            <p class="lead">Chúng tôi đang chuẩn bị thông tin vận chuyển cho đơn hàng của bạn.</p>
+            <p class="lead">Bạn sẽ nhận được thông tin vận chuyển sớm nhất!</p>
+            <br />
+            <h4 class="text-primary">
+                @Html.ActionLink("Quay về Trang Chủ", "Index", "BookStore", null, new { @class = "btn btn-home" })
+            </h4>
+        </div>
+    </div>
+</div>

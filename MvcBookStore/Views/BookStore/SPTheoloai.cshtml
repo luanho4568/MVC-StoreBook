@@ -1,0 +1,63 @@
+﻿@using MvcBookStore.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<SACH>
+
+<style>
+    .Trang li {
+        display: inline;
+        letter-spacing: 20px;
+    }
+    .Trang a:active {
+        background-color: green;
+        text-decoration-color: green;
+    }
+</style>
+@{
+    ViewBag.Title = "Sách Theo Loại Trang "+ @Model.PageNumber;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<h3 class="text-center">Sách xếp theo loại</h3>
+<div class="row">
+    @foreach (var sach in Model)
+    {
+        <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+            <div class="single-product">
+                <div class="product-img">
+                    <a href="@Url.Action("Details", "BookStore", new {id=sach.Masach})">
+                        <img class="default-img" src="~/images/anhsp/@sach.Anhbia" alt="#">
+                        <img class="hover-img" src="~/images/anhsp/@sach.Anhbia" alt="@sach.Tensach">
+                    </a>
+                    <div class="button-head">
+                        <div class="product-action">
+                            <a href="@Url.Action("Details", "BookStore", new {id=sach.Masach})" title="Thông tin chi tiết"><i class="ti-eye"></i><span>Xem nhanh</span></a>
+                            <a title="Wishlist" href="@Url.Action("ThemYeuThich","YeuThich", new {@iMasach=@sach.Masach,@strURL=Request.Url.ToString()})"><i class=" ti-heart "></i><span>Thêm vào yêu thích</span></a>
+                        </div>
+                        <div class="product-action-2">
+                            @if (@sach.Soluongton != 0 && @sach.Soluongton != null)
+                            {
+                                <a href="@Url.Action("ThemGiohang","GioHang", new {@iMasach=@sach.Masach,@strURL=Request.Url.ToString()})">Thêm vào giỏ</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="product-content text-center">
+                    <h3><a href="@Url.Action("Details", "BookStore", new {id=sach.Masach})">@sach.Tensach</a></h3>
+                    <div class="product-price">
+                        @if (@sach.Soluongton != 0 && @sach.Soluongton != null)
+                        {
+                            <span>@String.Format("{0:#,##0}", @sach.Giaban)</span><span> VNĐ</span>
+                        }
+                        else
+                        {
+                            <span>Hết Hàng</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="Trang">
+    Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("SPTheoloai", new { page = page }))
+</div>

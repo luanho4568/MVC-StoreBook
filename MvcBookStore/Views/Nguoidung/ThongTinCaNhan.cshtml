@@ -1,0 +1,69 @@
+﻿@model MvcBookStore.Models.KHACHHANG
+@{
+    ViewBag.Title = "Thông Tin Cá Nhân";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center mb-4">Thông tin cá nhân</h2>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            <div class="form-group">
+                <label for="hoTen">Họ tên:</label>
+                <input type="text" class="form-control" id="hoTen" value="@Model.HoTen" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="taiKhoan">Tài khoản:</label>
+                <input type="text" class="form-control" id="taiKhoan" value="@Model.Taikhoan" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" value="@Model.Email" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="diaChi">Địa chỉ:</label>
+                <input type="text" class="form-control" id="diaChi" value="@Model.DiachiKH" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="dienThoai">Điện thoại:</label>
+                <input type="tel" class="form-control" id="dienThoai" value="@Model.DienthoaiKH" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="ngaySinh">Ngày sinh:</label>
+                <input type="text" class="form-control" id="ngaySinh" value="@((Model.Ngaysinh.HasValue) ? Model.Ngaysinh.Value.ToString("dd/MM/yyyy") : "")" readonly>
+            </div>
+
+
+            <!-- Thêm các thông tin khác của người dùng nếu cần -->
+            <div class="text-center">
+                <a href="@Url.Action("CapNhatThongTin", "Nguoidung")" class="btn btn-primary"
+                   style="background-color: #007BFF; color: white;"
+                   onmouseover="this.style.backgroundColor='#F7941D';"
+                   onmouseout="this.style.backgroundColor='#007BFF';">Cập nhật thông tin</a>
+
+                <a href="@Url.Action("CapNhatMatKhau", "Nguoidung")" class="btn btn-success"
+                   style="background-color: #28A745; color: white;"
+                   onmouseover="this.style.backgroundColor='#F7941D';"
+                   onmouseout="this.style.backgroundColor='#28A745';">Đổi mật khẩu</a>
+
+                <a href="@Url.Action("Index", "BookStore")" class="btn btn-secondary"
+                   style="background-color: #DC3545; color: white;"
+                   onmouseover="this.style.backgroundColor='#F7941D';"
+                   onmouseout="this.style.backgroundColor='#DC3545';">Quay lại</a>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,74 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center mb-4">Đổi mật khẩu</h2>
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            @using (Html.BeginForm("CapNhatMatKhau", "Nguoidung", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label for="taiKhoan">Tài khoản:</label>
+                    <input type="text" class="form-control" id="taiKhoan" name="Taikhoan" value="@Model.Taikhoan" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="matKhauCu">Mật khẩu cũ:</label>
+                    <div class="form-check">
+                        <input type="password" class="form-control" id="matKhauCu" name="MatKhauCu" required>
+                        <input type="checkbox" id="showMatKhauCu" class="form-check-input" onchange="showPassword('matKhauCu')">
+                        <label class="form-check-label" for="showMatKhauCu">Hiển thị mật khẩu cũ</label>
+                    </div>
+                    @Html.ValidationMessage("MatKhauCu", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label for="matKhauMoi">Mật khẩu mới:</label>
+                    <div class="form-check">
+                        <input type="password" class="form-control" id="matKhauMoi" name="MatKhauMoi" minlength="6" maxlength="18" required>
+                        <input type="checkbox" id="showMatKhauMoi" class="form-check-input" onchange="showPassword('matKhauMoi')">
+                        <label class="form-check-label" for="showMatKhauMoi">Hiển thị mật khẩu mới</label>
+                    </div>
+                    @Html.ValidationMessage("MatKhauMoi", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label for="xacNhanMatKhau">Vui lòng Xác nhận lại mật khẩu:</label>
+                    <div class="form-check">
+                        <input type="password" class="form-control" id="xacNhanMatKhau" name="XacNhanMatKhau" minlength="6" maxlength="18" required>
+                        <input type="checkbox" id="showXacNhanMatKhau" class="form-check-input" onchange="showPassword('xacNhanMatKhau')">
+                        <label class="form-check-label" for="showXacNhanMatKhau">Hiển thị xác nhận mật khẩu</label>
+                    </div>
+                    @Html.ValidationMessage("XacNhanMatKhau", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success" style="background-color: #28A745; border-color: #28A745;"
+                            onmouseover="this.style.backgroundColor='#F7941D';"
+                            onmouseout="this.style.backgroundColor='#28A745';">
+                        Lưu thay đổi
+                    </button>
+                    <a href="@Url.Action("ThongTinCaNhan", "Nguoidung")" class="btn btn-secondary" style="background-color: #DC3545; border-color: #DC3545;"
+                       onmouseover="this.style.backgroundColor='#F7941D';"
+                       onmouseout="this.style.backgroundColor='#DC3545';">Hủy bỏ</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function showPassword(id) {
+        var passwordField = document.getElementById(id);
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>

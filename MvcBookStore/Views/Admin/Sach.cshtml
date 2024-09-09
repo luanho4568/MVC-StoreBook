@@ -1,0 +1,108 @@
+﻿@using MvcBookStore.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<MvcBookStore.Models.SACH>
+@{
+    ViewBag.Title = "Quản lí sách";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    tr, td, th {
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid black;
+    }
+
+    table {
+        border: 1px solid black;
+    }
+
+    #imggh {
+        max-width: 100px; /* Giữ nguyên chiều rộng, thay đổi chiều cao tỷ lệ */
+        max-height: 150px; /* Giữ nguyên chiều cao, thay đổi chiều rộng tỷ lệ */
+    }
+
+    a {
+        font-weight: bold;
+    }
+
+    .Trang li {
+        display: inline;
+        letter-spacing: 20px;
+    }
+
+    .Trang a:active {
+        background-color: green;
+        text-decoration-color: green;
+    }
+
+    #more {
+        border: 0px solid black;
+        width: 300px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+    }
+</style>
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "ThemmoiSach")
+</p>
+<table>
+    <tr>
+        <th>Tên Sách</th>
+        <th>Giá Bán</th>
+        <th>Mô Tả</th>
+        <th>Ảnh Bìa</th>
+        <th>Ngày Cập Nhật</th>
+        <th>Số Lượng Tồn</th>
+        <th>Mã Loại</th>
+        <th>Mã NXB</th>
+        <th style="width:80px">Thao Tác</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tensach)
+            </td>
+            <td>
+                @String.Format("{0:#,##0}", @item.Giaban)
+            </td>
+            <td id="more" class="text-center">
+                <!-- Thay đổi class thành "text-center" -->
+                @Html.DisplayFor(modelItem => item.Mota)
+            </td>
+            <td>
+                <img id="imggh" src="@Url.Content("~/images/anhsp/" + item.Anhbia)" alt="Ảnh không tồn tại!" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ngaycapnhat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluongton)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Loai.TenLoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NHAXUATBAN.TenNXB)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "SuaSach", "Admin", new { id = item.Masach }, null)
+                <br />
+                @Html.ActionLink("Chi tiết", "Chitietsach", new { id = item.Masach })
+                <br />
+                <span style="color:red">@Html.ActionLink("Xóa", "Xoasach", new { id = item.Masach })</span>
+            </td>
+        </tr>
+    }
+</table>
+<div class="Trang">
+    Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Sach", new { page = page }))
+</div>

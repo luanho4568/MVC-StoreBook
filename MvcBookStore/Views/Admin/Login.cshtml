@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đăng Nhập Quản Trị</title>
+    <meta charset="UTF-8" />
+    <meta name="Designer" content="Hồ Đình Thanh Luân">
+    <meta name="Author" content="Hồ Đình Thanh Luân - K13THO0027">
+    <link rel="stylesheet" href="~/Content/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin.css">
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <div>
+            <br />
+            <form>
+                <h3 class="text-center">Đăng nhập</h3>
+                <div class="container">
+                    <label for="uname"><b>Tên Đăng Nhập:</b></label>
+                    <br /><span class="text-danger">@ViewData["Loi1"]</span>
+                    <input type="text" name="username" placeholder="Tên đăng nhập">
+                    <label for="psw"><b>Mật Khẩu</b></label>
+                    <br /><span class="text-danger">@ViewData["Loi2"]</span>
+                    <input type="password" name="password" placeholder="************">
+                    <span class="text-center">@ViewBag.Thongbao</span>
+                    <button type="submit">Đăng Nhập</button>
+            </form>
+        </div>
+    }
+</body>
+</html>

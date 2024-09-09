@@ -1,0 +1,101 @@
+﻿@model IEnumerable<MvcBookStore.Models.DONDATHANG>
+
+@{
+    ViewBag.Title = "Thống kê doanh thu theo ngày";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Thống kê doanh thu</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-pills nav-fill">
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary" href="@Url.Action("ThongKeDoanhThuTheoNgay","Admin")">Thống kê doanh thu theo ngày</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary" href="@Url.Action("ThongKeDoanhThuTheoThang","Admin")">Thống kê doanh thu theo tháng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary" href="@Url.Action("ThongKeDoanhThuTheoNam","Admin")">Thống kê doanh thu theo năm</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Thống kê doanh thu theo ngày</h5>
+        </div>
+        <div class="card-body">
+
+            <!-- Form chọn ngày -->
+            <form action="@Url.Action("ThongKeDoanhThuTheoNgay", "Admin")" method="get" class="mb-4">
+                <div class="row">
+                    <!-- Chọn ngày -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="ngay">Ngày:</label>
+                            <input type="date" id="ngay" name="ngay" class="form-control" max="@DateTime.Now.ToString("yyyy-MM-dd")">
+                        </div>
+                    </div>
+
+                    <!-- Nút thực hiện -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button type="submit" class="btn btn-success btn-block">Thống kê</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Hiển thị thông tin doanh thu -->
+            <div class="alert alert-info">
+                <strong>Doanh thu ngày @ViewBag.Ngay:</strong> <span class="text-success">@ViewBag.TongDoanhThu.ToString("C")</span>
+            </div>
+            <div class="alert alert-secondary">
+                <strong>Tổng số đơn hàng:</strong> <span class="badge badge-pill badge-secondary">@ViewBag.TongSoDon</span>
+            </div>
+
+            <!-- Bảng danh sách đơn hàng -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Mã đơn hàng</th>
+                            <th scope="col">Tên khách hàng</th>
+                            <th scope="col">Ngày đặt</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Tổng tiền</th>
+                            <th scope="col">Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var donHang in Model)
+                        {
+                            <tr>
+                                <td>@donHang.MaDonHang</td>
+                                <td>@donHang.TenKhachHang</td>
+                                <td>@donHang.Ngaydat.Value.ToString("yyyy-MM-dd")</td>
+                                <td>@donHang.Soluongdon</td>
+                                <td>@donHang.Tongtien.ToString("C")</td>
+                                <td>
+                                    <a href="@Url.Action("Chitietdonhang", "Admin", new { id = donHang.MaDonHang })" class="btn btn-sm btn-info">Chi tiết</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

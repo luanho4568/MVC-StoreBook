@@ -1,0 +1,198 @@
+﻿@model List<MvcBookStore.Models.Giohang>
+
+@{
+    ViewBag.Title = "Danh sách yêu thích";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    /* Styles for the table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid black;
+        padding: 15px;
+    }
+
+    .checkbox-column {
+        text-align: center;
+        width: 60px; /* Điều chỉnh kích thước ô checkbox */
+    }
+
+    #imggh {
+        width: 100px;
+        height: 150px;
+    }
+
+    .text-info a,
+    .text-danger a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+        .text-info a:hover,
+        .text-danger a:hover {
+            text-decoration: underline;
+        }
+
+    .text-primary,
+    .text-danger,
+    .bg-success {
+        font-weight: bold;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    .bg-success {
+        background-color: #28a745;
+    }
+
+    .text-white {
+        color: white;
+    }
+
+    .button-action {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .back-to-home {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        .back-to-home button,
+        button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+            .back-to-home button:hover,
+            button:hover {
+                background-color: #0056b3;
+            }
+
+    .check-all-container {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    #checkAllLabel {
+        margin-left: 10px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    #checkAll {
+        margin-right: 5px;
+    }
+
+    /* Styles for responsive design */
+    @@media only screen and (max-width: 600px) {
+        .checkbox-column {
+            width: 100%;
+            text-align: left;
+        }
+
+        #imggh {
+            width: 80px;
+            height: 120px;
+        }
+
+        .back-to-home button,
+        button {
+            width: 100%;
+            margin-right: 0;
+        }
+    }
+</style>
+
+<center>
+    <h2>@ViewBag.Title</h2>
+</center>
+
+@using (Html.BeginForm("ChuyenVaoGioHang", "YeuThich"))
+{
+    <div class="check-all-container">
+        <input type="checkbox" id="checkAll" />
+        <label id="checkAllLabel" for="checkAll">Tích Tất Cả</label>
+    </div>
+
+    <table>
+        <tr>
+            <th class="checkbox-column"></th>
+            <th>Tên Sách</th>
+            <th>Ảnh Bìa</th>
+            <th>Số Lượng</th>
+            <th>Đơn Giá</th>
+            <th>Thành Tiền</th>
+            <th colspan="2">Thao Tác</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="checkbox-column">
+                    <input type="checkbox" name="selectedBooks" value="@item.iMasach" />
+                </td>
+                <td>@item.sTensach</td>
+                <td><img id="imggh" src="~/images/anhsp/@item.sAnhbia" /></td>
+                <td>@item.iSoluong</td>
+                <td>@String.Format("{0:#,##0}", item.dDonggia)</td>
+                <td>@String.Format("{0:#,##0}", item.dThanhtien)</td>
+                <td class="text-info">
+                    <a href="@Url.Action("Details", "BookStore", new { id = item.iMasach })">Chi tiết</a>
+                </td>
+                <td class="text-danger">
+                    @Html.ActionLink("Xóa", "XoaYeuThich", new { @iMaSP = item.iMasach })
+                </td>
+            </tr>
+        }
+        <tr class="text-primary">
+            <td colspan="4" style="text-align:right">Số lượng sách: @ViewBag.Tongsoluong</td>
+            <td colspan="3" style="text-align:right">Tổng tiền: @String.Format("{0:#,##0}", ViewBag.Tongtien) VNĐ</td>
+        </tr>
+    </table>
+    <div class="button-action">
+        <button type="submit">Chuyển vào giỏ hàng</button>
+        <button type="button" onclick="window.location.href='@Url.Action("XoaTatcaYeuThich", "YeuThich")'">Xóa Toàn Bộ Yêu Thích</button>
+        <div class="back-to-home">
+            <button type="button" onclick="window.location.href='@Url.Action("Index", "BookStore")'">Quay lại trang chủ</button>
+        </div>
+    </div>
+}
+
+<!-- Đảm bảo thư viện jQuery đã được tải -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Checkbox "Check All"
+        $('#checkAll').click(function () {
+            var isChecked = this.checked;
+            $('input[name="selectedBooks"]').prop('checked', isChecked);
+        });
+
+        // Bắt sự kiện khi checkbox cuối cùng được chọn hoặc bỏ chọn
+        $('input[name="selectedBooks"]').last().change(function () {
+            $('#checkAll').prop('checked', false);
+        });
+    });
+</script>
+

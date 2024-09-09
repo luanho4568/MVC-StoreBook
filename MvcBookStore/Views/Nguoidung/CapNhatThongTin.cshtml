@@ -1,0 +1,132 @@
+﻿@model MvcBookStore.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center mb-4">Thông tin cá nhân</h2>
+
+            @using (Html.BeginForm("CapNhatThongTin", "Nguoidung", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label for="hoTen">Họ tên:</label>
+                    <input type="text" class="form-control" id="hoTen" name="HoTen" value="@Model.HoTen" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="taiKhoan">Tài khoản:</label>
+                    <input type="text" class="form-control" id="taiKhoan" name="Taikhoan" value="@Model.Taikhoan" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="Email" value="@Model.Email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="diaChi">Địa chỉ:</label>
+                    <input type="text" class="form-control" id="diaChi" name="DiachiKH" value="@Model.DiachiKH" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dienThoai">Điện thoại:</label>
+                    <input type="tel" class="form-control" id="dienThoai" name="DienthoaiKH" value="@Model.DienthoaiKH" required pattern="[0-9]{10,11}">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="ngaySinh">Ngày sinh:</label>
+                    <input type="text" class="form-control" id="ngaySinh" value="@((Model.Ngaysinh.HasValue) ? Model.Ngaysinh.Value.ToString("dd/MM/yyyy") : "")" readonly>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success"
+                            style="background-color: #28A745; border-color: #28A745;"
+                            onmouseover="this.style.backgroundColor='#F7941D';"
+                            onmouseout="this.style.backgroundColor='#28A745';">
+                        Lưu thay đổi
+                    </button>
+
+                    <a href="@Url.Action("ThongTinCaNhan", "Nguoidung")" class="btn btn-secondary"
+                       style="background-color: #DC3545; border-color: #DC3545;"
+                       onmouseover="this.style.backgroundColor='#F7941D';"
+                       onmouseout="this.style.backgroundColor='#DC3545';">Hủy bỏ</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Đặt đoạn mã sau đoạn mã jQuery mà bạn có trước </body> tag -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Đặt đoạn mã jQuery sau thẻ </form> để đảm bảo đã load hết DOM -->
+<!-- Bootstrap CSS và JS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var isFormChanged = false;
+
+        // Sự kiện khi người dùng thay đổi giá trị trong form
+        $("form :input").change(function () {
+            isFormChanged = true;
+        });
+
+        // Sự kiện khi người dùng submit form
+        $("form").submit(function (event) {
+            if (!isFormChanged) {
+                event.preventDefault();
+                showBootstrapAlert("Không có thay đổi để lưu.", "warning");
+            }
+        });
+
+        function showBootstrapAlert(message, type) {
+            var alertClass = "alert-" + type;
+            var alertMarkup = '<div class="alert ' + alertClass + ' alert-dismissible fade show" role="alert">' +
+                '<strong>Thông báo!</strong> ' + message +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>';
+            $("#alerts-container").html(alertMarkup);
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("form").submit(function () {
+            var email = $("#email").val();
+            if (email && !email.endsWith("@@gmail.com")) {
+                alert("Vui lòng nhập địa chỉ email hợp lệ với đuôi '@@gmail.com'");
+                return false;
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("form").submit(function () {
+            var phoneNumber = $("#dienThoai").val();
+            if (!isValidPhoneNumber(phoneNumber)) {
+                showBootstrapAlert("Vui lòng nhập số điện thoại hợp lệ.", "danger");
+                return false;
+            }
+        });
+
+        function isValidPhoneNumber(phoneNumber) {
+            // Kiểm tra xem số điện thoại chỉ chứa chữ số và có độ dài từ 10 đến 11 kí tự
+            var phoneNumberRegex = /^[0-9]{10,11}$/;
+            return phoneNumberRegex.test(phoneNumber);
+        }
+    });
+</script>
+
+
+

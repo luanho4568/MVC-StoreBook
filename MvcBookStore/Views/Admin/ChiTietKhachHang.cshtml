@@ -1,0 +1,104 @@
+﻿@model MvcBookStore.Models.KHACHHANG
+@{
+    ViewBag.Title = "Chi tiết Khách Hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+
+
+    .user-details {
+        max-width: 600px;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .user-details h3 {
+            color: #007bff;
+        }
+
+    .dl-horizontal dt {
+        font-weight: bold;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 0;
+    }
+
+    .back-link {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        /* Styling for the "Quay lại" link */
+        .back-link a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            .back-link a:hover {
+                background-color: #0056b3;
+            }
+</style>
+
+<div class="user-details">
+    <h3>Thông tin người dùng</h3>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Tên người dùng:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Taikhoan)
+            </dd>
+
+            <dt>
+                Họ tên khách hàng:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.HoTen)
+            </dd>
+
+            <dt>
+                Ngày sinh:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ngaysinh)
+            </dd>
+
+            <dt>
+                Địa chỉ:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DiachiKH)
+            </dd>
+
+            <dt>
+                Số điện thoại liên hệ:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DienthoaiKH)
+            </dd>
+
+            <dt>
+                Email liên hệ:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+    </div>
+
+    <p class="back-link">
+        @Html.ActionLink("Quay lại", "KhachHangList")
+    </p>
+</div>

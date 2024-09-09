@@ -1,0 +1,85 @@
+﻿@model MvcBookStore.Models.Loai
+
+@{
+    ViewBag.Title = "Xóa Loại Sách";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    body {
+        padding-top: 20px;
+        background-color: #f8f8f8;
+    }
+
+    .confirmation-container {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 30px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #d9534f; /* Màu đỏ */
+    }
+
+    p {
+        text-align: center;
+        color: #555;
+    }
+
+    .dl-horizontal {
+        text-align: left;
+    }
+
+    .form-actions {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .btn-confirm {
+        background-color: #d9534f; /* Màu đỏ */
+        color: #fff;
+        border-color: #d43f3a;
+    }
+
+    .btn-cancel {
+        background-color: #5bc0de; /* Màu xanh dương */
+        color: #fff;
+        border-color: #46b8da;
+    }
+</style>
+
+<div class="confirmation-container">
+    <h2>Xác nhận Xóa Loại Sách</h2>
+
+    <p>Bạn có chắc chắn muốn xóa loại sách này không?</p>
+
+    <div>
+        <h4>Thông tin loại sách</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TenLoai)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenLoai)
+            </dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Xác nhận" class="btn btn-confirm" />
+                @Html.ActionLink("Hủy", "Loai", null, new { @class = "btn btn-cancel" })
+            </div>
+        }
+    </div>
+</div>

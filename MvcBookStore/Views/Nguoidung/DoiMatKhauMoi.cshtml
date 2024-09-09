@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "Đổi Mật Khẩu Mới";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    p {
+        color: red;
+    }
+
+    input {
+        width: 50%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 8px;
+    }
+
+    table {
+        width: 70%;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr {
+        height: 40px;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+    }
+
+    .checkbox-label input {
+        margin-right: 4px;
+    }
+</style>
+
+<script>
+    function validatePassword() {
+        var newPassword = document.getElementById("MatKhauMoi").value;
+        var confirmPassword = document.getElementById("XacNhanMatKhau").value;
+
+        if (newPassword !== confirmPassword) {
+            document.getElementById("confirmPasswordError").style.display = "block";
+            return false;
+        } else {
+            document.getElementById("confirmPasswordError").style.display = "none";
+            return true;
+        }
+    }
+
+    function togglePasswordVisibility(fieldId) {
+        var passwordField = document.getElementById(fieldId);
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>
+
+<div>
+    <h2 class="text-center">@ViewBag.Title</h2>
+    <p class="text-center">@ViewBag.Thongbao</p>
+</div>
+
+<table>
+    @using (Html.BeginForm("DoiMatKhauMoi", "Nguoidung", FormMethod.Post, new { onsubmit = "return validatePassword();" }))
+    {
+        <tr>
+            <td>Tên Đăng Nhập:</td>
+            <td>
+                <input type="text" name="TenDN" value="@ViewBag.TenDN" readonly />
+            </td>
+        </tr>
+        <tr>
+            <td>Nhập Mật Khẩu Mới:</td>
+            <td>
+                <div class="checkbox-label">
+                    <input type="password" name="MatKhauMoi" id="MatKhauMoi" required minlength="6" maxlength="18" />
+                    <label class="checkbox-label">
+                        <input type="checkbox" onclick="togglePasswordVisibility('MatKhauMoi')"> Hiển thị mật khẩu
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Xác Nhận Mật Khẩu:</td>
+            <td>
+                <div class="checkbox-label">
+                    <input type="password" name="XacNhanMatKhau" id="XacNhanMatKhau" required />
+                    <label class="checkbox-label">
+                        <input type="checkbox" onclick="togglePasswordVisibility('XacNhanMatKhau')"> Hiển thị mật khẩu
+                    </label>
+                </div>
+                <p id="confirmPasswordError" style="color: red; display: none;">Mật khẩu xác nhận không khớp với mật khẩu mới.</p>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input class="btn bg-primary text-white text-center" type="submit" value="Xác Nhận" />
+            </td>
+        </tr>
+    }
+</table>

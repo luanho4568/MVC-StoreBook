@@ -1,0 +1,157 @@
+﻿@model MvcBookStore.Models.DONDATHANG
+@{
+    ViewBag.Title = "Quản lí đơn hàng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="col-md-8 text-center">Thông tin đơn hàng @Model.KHACHHANG.HoTen</h2>
+        @using (Html.BeginForm())
+        {
+            <div class="ChiTietDonHang table-responsive">
+                @{IEnumerable<MvcBookStore.Models.CHITIETDONTHANG> lstChiTietDH = (IEnumerable<MvcBookStore.Models.CHITIETDONTHANG>)ViewBag.ListChiTietDH; }
+                <table class="table table-bordered">
+                    <!-- Thông tin đơn hàng -->
+                    <tr>
+                        <td colspan="6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>Mã đơn hàng: <b>@Model.MaDonHang @Html.Hidden("MaDDH", Model.MaDonHang)</b></td>
+                                    <td>Mã khách hàng: <b>@Model.KHACHHANG.MaKH </b></td>
+                                    <td>Tên khách hàng: <b>@Model.KHACHHANG.HoTen </b></td>
+                                    <td>Ngày đặt: <b>@Model.Ngaydat.Value.ToString("dd/MM/yyyy")</b></td>
+                                    <td>Thanh toán: @Html.DropDownListFor(model => model.Dathanhtoan, new SelectList(new[] { new { Value = true, Text = "Đã thanh toán" }, new { Value = false, Text = "Chưa thanh toán" } }, "Value", "Text", Model.Dathanhtoan), new { @class = "form-control" })</td>
+                                    <td>Trạng thái: @Html.DropDownListFor(model => model.Tinhtranggiaohang, new SelectList(new[] { new { Value = true, Text = "Đã giao hàng" }, new { Value = false, Text = "Chưa giao hàng" } }, "Value", "Text", Model.Tinhtranggiaohang), new { @class = "form-control" })</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Thông tin chi tiết đơn hàng -->
+                    <tr>
+                        <td><b>Tên sách</b></td>
+                        <td style="width: 150px;"><b>Ảnh bìa</b></td>
+                        <td style="width: 80px;"><b>Số lượng</b></td>
+                        <td style="width: 100px;"><b>Đơn giá</b></td>
+                    </tr>
+                    @foreach (var item in lstChiTietDH)
+                    {
+                        <tr>
+                            <td>@item.SACH.Tensach</td>
+                            <td><img width="150" height="50" src="@Url.Content("~/images/anhsp/"+item.SACH.Anhbia)" /></td>
+                            <td>@item.Soluong</td>
+                            <td>@item.Dongia.Value.ToString("#,##")</td>
+                        </tr>
+                    }
+                    <!-- Tổng số lượng và Tổng tiền -->
+                    <tr>
+                        <td align="right" colspan="4">
+                            <span class="mr-5">Tổng số lượng: @lstChiTietDH.Sum(n => n.Soluong)</span>
+                            <span>Tổng tiền: @lstChiTietDH.Sum(n => n.Dongia.Value).ToString("#,##") VNĐ</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-sm-6">
+                    <input type="submit" value="Lưu" class="btn btn-primary" />
+                    @Html.ActionLink("Hủy", "ChuaGiao", null, new { @class = "btn btn-cancel" })
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .card {
+        margin: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    h2 {
+        color: #007bff;
+    }
+
+    .ChiTietDonHang {
+        margin-top: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right: 5px;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-cancel {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-info:hover {
+        background-color: #117a8b;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+</style>
+
+<script>
+    $('#btnInDonHang').click(function () {
+        var content = "<table>" + $("#table").html() + "</table>";
+        InDonHang(content);
+    });
+
+    function InDonHang(content) {
+        var printWindow = window.open('', '', 'height=50%,width=100%');
+        printWindow.document.write('<html><head><title>DIV contents</title>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(content);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+</script>

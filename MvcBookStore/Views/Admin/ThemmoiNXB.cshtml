@@ -1,0 +1,100 @@
+﻿@model MvcBookStore.Models.NHAXUATBAN
+
+@{
+    ViewBag.Title = "Thêm mới Nhà Xuất Bản";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    body {
+        padding-top: 20px;
+        background-color: #f8f8f8;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    label {
+        font-weight: bold;
+        color: #555;
+        white-space: nowrap;
+    }
+
+    .form-control {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: none;
+    }
+
+    .btn-container {
+        margin-top: 20px;
+    }
+
+        .btn-container .btn {
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+    .btn-save {
+        background-color: #5cb85c; /* Màu xanh lá cây */
+        color: #fff;
+        border-color: #4cae4c;
+    }
+
+    .btn-cancel {
+        background-color: #d9534f; /* Màu đỏ */
+        color: #fff;
+        border-color: #d43f3a;
+    }
+
+    .btn-back {
+        background-color: #5bc0de; /* Màu xanh dương */
+        color: #fff;
+        border-color: #46b8da;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Thêm mới Nhà Xuất Bản</h2>
+
+    @using (Html.BeginForm("ThemmoiNXB", "Admin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenNXB, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.TenNXB, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenNXB, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Diachi, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Diachi, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Diachi, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DienThoai, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.DienThoai, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DienThoai, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="btn-container">
+            <input type="submit" value="Thêm mới" class="btn btn-save" />
+            @Html.ActionLink("Hủy", "NXB", null, new { @class = "btn btn-cancel" })
+        </div>
+    }
+</div>

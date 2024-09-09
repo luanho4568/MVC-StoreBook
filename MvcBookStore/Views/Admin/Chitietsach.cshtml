@@ -1,0 +1,121 @@
+﻿@model MvcBookStore.Models.SACH
+
+@{
+    ViewBag.Title = "Chitietsach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .book-details-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+        .book-details-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+
+    .book-details dl {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .book-details dt {
+        font-weight: bold;
+    }
+
+    .book-details dd {
+        margin: 0;
+    }
+
+    .book-actions {
+        margin-top: 20px;
+    }
+
+        .book-actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .book-actions a.delete {
+                background-color: #dc3545;
+            }
+
+            .book-actions a.edit {
+                background-color: #007bff;
+            }
+
+            .book-actions a.back {
+                background-color: #28a745;
+            }
+            /* Thêm vào phần style đã có */
+
+            /* Màu khi di chuột vào */
+            .book-actions a:hover {
+                filter: brightness(1.2); /* Tăng độ sáng khi hover */
+            }
+
+            /* Màu khi di chuột vào cho từng nút cụ thể */
+            .book-actions a.delete:hover {
+                background-color: #F7941D;
+            }
+
+            .book-actions a.edit:hover {
+                background-color: #F7941D;
+            }
+
+            .book-actions a.back:hover {
+                background-color: #F7941D;
+            }
+
+</style>
+
+<div class="book-details-container">
+    <h3 class="text-center">Chi tiết sách</h3>
+    <hr />
+
+    <img src="~/images/anhsp/@Url.Content(Model.Anhbia)"
+         alt="Image"
+         width="250"
+         height="300" />
+    <div class="book-details">
+        <dl>
+            <dt>Tên sách:</dt>
+            <dd>@Html.DisplayFor(model => model.Tensach)</dd>
+
+            <dt>Giá bán:</dt>
+            <dd>@String.Format("{0:#,##0}", Model.Giaban) VNĐ</dd>
+
+            <dt>Mô tả:</dt>
+            <dd>@Html.DisplayFor(model => model.Mota)</dd>
+
+            <dt>Ngày cập nhật:</dt>
+            <dd>@String.Format("{0:dd/MM/yyyy}", Model.Ngaycapnhat)</dd>
+
+            <dt>Số lượng tồn:</dt>
+            <dd>@Html.DisplayFor(model => model.Soluongton)</dd>
+
+            <dt>Loại sách:</dt>
+            <dd>@Html.DisplayFor(model => model.Loai.TenLoai)</dd>
+
+            <dt>Nhà xuất bản:</dt>
+            <dd>@Html.DisplayFor(model => model.NHAXUATBAN.TenNXB)</dd>
+        </dl>
+    </div>
+
+    <div class="book-actions text-center">
+        @Html.ActionLink("Xóa", "Xoasach", new { id = Model.Masach }, new { @class = "btn delete" })
+        @Html.ActionLink("Sửa", "Suasach", new { id = Model.Masach }, new { @class = "btn edit" })
+        @Html.ActionLink("Quay lại", "Sach", null, new { @class = "btn back" })
+    </div>
+</div>
